@@ -1,0 +1,18 @@
+version: '2'
+services:
+  ftel:
+    container_name: "ftel_api_docker"
+    build: .
+    ports:
+      - 5005:5005
+    volumes:
+      - .:/app
+  redis:
+    image: redis:3.2-alpine
+    container_name: "redis"
+    ports:
+      - 6378:6379
+    volumes:
+      - redis_data:/data
+volumes:
+  redis_data:

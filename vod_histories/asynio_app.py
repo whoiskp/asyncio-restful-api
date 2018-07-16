@@ -1,4 +1,5 @@
 from aiohttp import web
+from config import DevConfig
 from utils_histories import add_vod_history_redis, get_vod_history_redis, get_vod_history_user_redis
 
 
@@ -49,4 +50,4 @@ app.add_routes([web.get('/', handle),
                 ])
 
 if __name__ == '__main__':
-    web.run_app(app, host="0.0.0.0", port="5005")
+    web.run_app(app, host=DevConfig.WEB_APP_HOST, port=DevConfig.WEB_APP_POST)

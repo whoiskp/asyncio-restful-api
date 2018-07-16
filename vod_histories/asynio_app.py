@@ -1,4 +1,5 @@
 from aiohttp import web
+
 from config import DevConfig
 from utils_histories import add_vod_history_redis, get_vod_history_redis, get_vod_history_user_redis
 
@@ -43,6 +44,7 @@ async def post_vod_history(request):
 
 
 app = web.Application()
+
 app.add_routes([web.get('/', handle),
                 web.get('/histories/list/{user_id}', handler_list_user_id),
                 web.get('/histories/{user_id}/{object_id}', get_vod_history),

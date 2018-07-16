@@ -15,5 +15,6 @@ class DevConfig(BaseConfig):
     # ============== REDIS POST ======================
     REDIS_HOST = "localhost"
     REDIS_POST = 6379
+    REDIS_DB = 1
 
 

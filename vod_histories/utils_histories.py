@@ -1,5 +1,4 @@
 from redis import Redis
-import json
 try:
     import cPickle as pickle
 except ImportError:  # pragma: no cover

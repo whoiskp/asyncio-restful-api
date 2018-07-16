@@ -1,8 +1,5 @@
 from aiohttp import web
 from utils_histories import add_vod_history_redis, get_vod_history_redis, get_vod_history_user_redis
-import asyncio
-
-from aiohttp import web
 
 
 async def handle(request):

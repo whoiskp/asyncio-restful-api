@@ -28,7 +28,7 @@ async def get_vod_history(request):
     user_id = request.match_info['user_id']
     object_id = request.match_info['object_id']
     response = {'result': int(0), 'msg': 'Success', 'data': {}}
-    data = await get_vod_history_redis(user_id, object_id)
+    data = get_vod_history_redis(user_id, object_id)
     if data is None:
         response['msg'] = "not found!"
         return web.json_response(data=response, status=404)

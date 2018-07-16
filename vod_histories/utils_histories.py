@@ -1,5 +1,9 @@
 from redis import Redis
 import json
+try:
+    import cPickle as pickle
+except ImportError:  # pragma: no cover
+    import pickle
 
 redis = Redis(host="localhost", port=6379)
 
@@ -38,7 +42,7 @@ async def add_vod_history_redis(vod_history_data):
     key_vod_add = VOD_HISTORY_KEY_PATTERN % (user_id, object_id)
     data_vod_add = {"episode_num": int(episode_num), "elapsed_time": int(elapsed_time)}
 
-    redis.set(key_vod_add, json.dumps(data_vod_add))
+    redis.set(key_vod_add, pickle.dumps(data_vod_add))
 
     print("done!")
     return True
@@ -50,7 +54,7 @@ def get_vod_history_redis(user_id, object_id):
     if result is None:
         return None
     print(f'result: {result}')
-    result_json = json.loads(result)
+    result_json = pickle.loads(result)
     print(f'result json: {result_json}')
     return result_json
 

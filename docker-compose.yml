@@ -4,7 +4,7 @@ services:
     container_name: "ftel_api_docker"
     build: .
     ports:
-      - 5005:5005
+      - 6969:6969
     volumes:
       - .:/shortify
   redis:

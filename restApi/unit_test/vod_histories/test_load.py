@@ -3,7 +3,7 @@ import random
 import uuid
 
 # Testing problem
-from vod_histories.utils_histories import add_vod_history_redis
+# from vod_histories.utils_histories import add_vod_history_redis
 
 MAX_NUMBER_USER_FOR_TEST = 10000
 MAX_VOD_FOR_TEST = 100
@@ -33,7 +33,7 @@ async def init_data_for_test():
             vod_history_data['episode_num'] = random.randint(1, 100)
             vod_history_data['elapsed_time'] = random.randint(1, 100)
 
-            result = await add_vod_history_redis(vod_history_data)
+            result = ""
             print("result: " + str(result))
 
     for user in redis.keys("histories:list:*"):

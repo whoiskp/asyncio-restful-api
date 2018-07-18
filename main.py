@@ -6,11 +6,11 @@ import aiohttp_jinja2
 import jinja2
 from aiohttp import web
 
-from vod_histories.api.routes import setup_routes
-from vod_histories.api.utils import init_redis, load_config
-from vod_histories.api.views import Vod_handler
+from restApi.routes import setup_routes
+from restApi.utils import init_redis, load_config
+from restApi.vod_histories.views import VodHandler
 
-PROJ_ROOT = pathlib.Path(__file__).parent.parent
+PROJ_ROOT = pathlib.Path(__file__).parent
 TEMPLATES_ROOT = pathlib.Path(__file__).parent / 'templates'
 
 
@@ -33,26 +33,26 @@ def setup_jinja(app):
 
 
 async def init(loop):
-    conf = load_config(PROJ_ROOT / 'config' / 'config.yml')
+    conf = load_config(PROJ_ROOT / 'configs' / 'config.yml')
 
     app = web.Application(loop=loop)
     redis_pool = await setup_redis(app, conf, loop)
     setup_jinja(app)
 
-    handler = Vod_handler(redis_pool, conf)
+    handler = VodHandler(redis_pool, conf)
 
     setup_routes(app, handler, PROJ_ROOT)
-    host, port = conf['host'], conf['port']
-    return app, host, port
+    # host, port = conf['host'], conf['port']
+    return app
 
 
-def main():
+def run_web():
     logging.basicConfig(level=logging.DEBUG)
 
     loop = asyncio.get_event_loop()
-    app, host, port = loop.run_until_complete(init(loop))
-    web.run_app(app, host=host, port=port)
+
+    return loop.run_until_complete(init(loop))
 
 
-if __name__ == '__main__':
-    main()
+# gunicorn main:app --bind localhost:6969 --worker-class aiohttp.worker.GunicornWebWorker
+app = run_web()

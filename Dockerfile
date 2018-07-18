@@ -4,4 +4,4 @@ WORKDIR /urs/src/app
 EXPOSE 5000
 RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
-ENTRYPOINT ["python", "vod_histories/asynio_app.py"]
+ENTRYPOINT ["python", "api/main.py"]

@@ -1,3 +1,4 @@
+import os
 import aioredis
 import trafaret as t  # TODO: for check validate dict in request
 import yaml
@@ -14,20 +15,23 @@ def load_config(fname):
 
 # TODO: create redis pool
 # docs: http://aioredis.readthedocs.io/en/v0.2.9/api_reference.html
-async def init_redis(conf, loop):
+async def init_redis(loop):
     """
     Init redis pool
     :minsize (int) – Minimum number of free connection to create in pool. 1 by default.
     :maxsize (int) – Maximum number of connection to keep in pool. 10 by default.
     Must be greater then 0. None is disallowed.
-    :param conf:
     :param loop:
     :return:
     """
+    redis_host = os.environ["REDIS_HOST"]
+    redis_port = os.environ["REDIS_PORT"]
+    redis_minsize = int(os.environ["REDIS_MINSIZE"])
+    redis_maxsize = int(os.environ["REDIS_MAXSIZE"])
     pool = await aioredis.create_redis_pool(
-        (conf['host'], conf['port']),
-        minsize=conf['minsize'],
-        maxsize=conf['maxsize'],
+        (redis_host, redis_port),
+        minsize=redis_minsize,
+        maxsize=redis_maxsize,
         loop=loop
     )
     return pool

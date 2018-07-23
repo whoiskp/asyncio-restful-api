@@ -5,8 +5,8 @@ from .controller import VodController
 
 
 class VodHandler:
-    def __init__(self, redis, conf):
-        self._controller = VodController(redis, conf)
+    def __init__(self, redis):
+        self._controller = VodController(redis)
 
     @aiohttp_jinja2.template('vod_histories/index.html')
     async def index(self, request):

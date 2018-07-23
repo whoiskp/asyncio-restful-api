@@ -15,10 +15,10 @@ PROJ_ROOT = pathlib.Path(__file__).parent
 TEMPLATES_ROOT = pathlib.Path(__file__).parent / 'templates'
 
 
-async def setup_redis(app, conf, loop):
-    pool = await init_redis(conf['redis'], loop)
+async def setup_redis(app, loop):
+    pool = await init_redis(loop)
 
-    async def close_redis(app):
+    async def close_redis():
         pool.close()
         await pool.wait_closed()
 
@@ -34,13 +34,12 @@ def setup_jinja(app):
 
 
 async def init(loop):
-    conf = load_config(PROJ_ROOT / 'configs' / 'config.yml')
 
     app = web.Application(loop=loop)
-    redis_pool = await setup_redis(app, conf, loop)
+    redis_pool = await setup_redis(app, loop)
     setup_jinja(app)
 
-    handler = VodHandler(redis_pool, conf)
+    handler = VodHandler(redis_pool)
 
     setup_routes(app, handler, PROJ_ROOT)
     # host, port = conf['host'], conf['port']
@@ -49,13 +48,12 @@ async def init(loop):
 
 def run_web():
     logging.basicConfig(level=logging.DEBUG)
-    print("ahihi")
-    print("REDIS_HOST: " + os.environ["REDIS_HOST"])
+
     loop = asyncio.get_event_loop()
 
     return loop.run_until_complete(init(loop))
 
 
-# gunicorn main:app --bind localhost:6969 --worker-class aiohttp.worker.GunicornWebWorker
+# gunicorn main:web --bind localhost:6969 --worker-class aiohttp.worker.GunicornWebWorker
 
-app = run_web()
+web = run_web()

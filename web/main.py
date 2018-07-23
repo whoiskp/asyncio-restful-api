@@ -1,3 +1,4 @@
+import os
 import asyncio
 import logging
 import pathlib
@@ -48,11 +49,13 @@ async def init(loop):
 
 def run_web():
     logging.basicConfig(level=logging.DEBUG)
-
+    print("ahihi")
+    print("REDIS_HOST: " + os.environ["REDIS_HOST"])
     loop = asyncio.get_event_loop()
 
     return loop.run_until_complete(init(loop))
 
 
 # gunicorn main:app --bind localhost:6969 --worker-class aiohttp.worker.GunicornWebWorker
+
 app = run_web()

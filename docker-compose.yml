@@ -9,7 +9,18 @@ services:
     volumes:
     - /usr/src/app/templates/static
     env_file: dev.env
-    command: /usr/local/bin/gunicorn main:web --bind :8000 --worker-class aiohttp.worker.GunicornWebWorker
+    command: /usr/local/bin/gunicorn --workers=2 main:web --bind :8000 --worker-class aiohttp.worker.GunicornWebWorker
+  nginx:
+    restart: always
+    build: ./nginx/
+    ports:
+      - "80:80"
+    volumes:
+      - /www/static
+    volumes_from:
+      - web
+    links:
+      - web:web
   redis:
     image: redis:3.2-alpine
     container_name: "redis"

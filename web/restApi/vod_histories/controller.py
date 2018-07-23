@@ -39,7 +39,7 @@ class VodController:
         await self._redis.lrem(key_list_vod_user, count=1, value=object_id)
         await self._redis.lpush(key_list_vod_user, object_id)
 
-        key_vod_add = os.environ['VOD_LIST_VOD_USER'] % (user_id, object_id)
+        key_vod_add = os.environ['VOD_HISTORY'] % (user_id, object_id)
         print(f'key vod add: {key_vod_add}')
         data_vod_add = {"episode_num": int(episode_num), "elapsed_time": int(elapsed_time)}
 
@@ -52,7 +52,7 @@ class VodController:
 
     async def get_vod_history_redis(self, user_id, object_id):
 
-        key_vod_add = os.environ['VOD_LIST_VOD_USER'] % (user_id, object_id)
+        key_vod_add = os.environ['VOD_HISTORY'] % (user_id, object_id)
         result = await self._redis.get(key_vod_add)
         if not result:
             return web.HTTPNotFound('Not found data')

@@ -25,7 +25,7 @@ New API for updating history data of VODs
     `$: docker-compose build`
 5. Run:
 
-    `$: docker-compose up --build`
+    `$: docker-compose up --build`  
 6. Get Ip Docker machine is running:
     `docker-machine ip fplay`
 

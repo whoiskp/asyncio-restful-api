@@ -55,5 +55,4 @@ def run_web():
 
 
 # gunicorn main:web --bind localhost:6969 --worker-class aiohttp.worker.GunicornWebWorker
-
 web = run_web()

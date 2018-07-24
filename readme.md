@@ -1,6 +1,12 @@
 # [Api Histories][draw-io]
 New API for updating history data of VODs
 
+| Methods | Url | body |Description |
+|---------|-----|------|-----------:|
+|POST| /histories/add | `{"object_id":"5243a","user_id":21801629,"episode_num": 5,"elapsed_time": 27}`|add history of vod 
+|GET| /histories/list/<user_id>| |Get list vod save in redis|
+|GET|  /histories/<user_id>/<vod_id>| | Get vod history info|
+
 
 
 ## Usage:
@@ -38,6 +44,7 @@ New API for updating history data of VODs
     wrk.headers["Content-Type"] = "application/json"
   ```
 * Test load:
+
     `wrk -t4 -c500000 -d30s -s path/to/post.lua http://192.168.99.100/histories/add`
 
 ## some useful reference:

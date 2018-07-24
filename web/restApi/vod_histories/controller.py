@@ -36,9 +36,9 @@ class VodController:
             await self._redis.delete(key_vod_remove)
 
         # delete all value
-        await self._redis.lrem(key_list_vod_user, count=len_vod_user, value=object_id)
+        self._redis.lrem(key_list_vod_user, count=len_vod_user, value=object_id)
         # add newest data to top
-        await self._redis.lpush(key_list_vod_user, object_id)
+        self._redis.lpush(key_list_vod_user, object_id)
 
         key_vod_add = os.environ['VOD_HISTORY'] % (user_id, object_id)
         print(f'key vod add: {key_vod_add}')

@@ -8,6 +8,19 @@ New API for updating history data of VODs
 |GET|  /histories/<user_id>/<vod_id>| | Get vod history info|
 
 
+**In Windows, maybe you get error with Hyper-V when use: `> docker-machine create -d hyperv dev`. To fix it just Add your current user to "Local Group": *'Hyper-V Administrators'*.**
+
+Check your <*current username*> by: 
+
+    > whoami
+
+Start `cmd.exe` by **Administrator**:
+
+ 1. Check _localgroup_ by: `> net localgroup`
+ 2. Add <your user> to __*Hyper-V Admininstrators*__: `> net localgroup "Hyper-V Administrators" <current username> /add`
+ 3. **Sign out** or **Reboot**
+
+ 
 
 ## Usage:
 
@@ -15,6 +28,8 @@ New API for updating history data of VODs
 * docker-ce
 * docker-composer
 
+Use docker-machine in Windows add current user to Hyper-V 
+``
 ## Run
 1. install new docker virtual machine:
 

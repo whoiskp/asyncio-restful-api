@@ -51,6 +51,8 @@ Use docker-machine in Windows add current user to Hyper-V
     `docker-machine ip fplay`
 
 7. Go to this ip get from step 6, exp: _http://192.168.99.100_ 
+8. Run redis-cli: `docker-compose run rcli`
+
 ## Use Benchmarking tool
 * [make post request in wrk](https://github.com/wg/wrk/issues/22) test add new histories vod, with name `post.lua`:
    ```text
